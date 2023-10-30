@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Visite;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class VisiteType extends AbstractType
 {
@@ -15,7 +17,11 @@ class VisiteType extends AbstractType
         $builder
             ->add('ville')
             ->add('pays')
-            ->add('datecreation', null, ['widget' => 'single_text', 'label' => 'Date'])
+            ->add('datecreation', DateType::class, [
+                'widget' => 'single_text',
+                'data' => isset($options['data']) &&
+                    $options['data']->getDateCreation() !=null ? $options['data']->getDateCreation() : new DateTime('now'),
+                'label' => 'Date'])
             ->add('note')
             ->add('avis')
             ->add('tempmin', null, ['label' => 't° min'])
