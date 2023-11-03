@@ -31,6 +31,7 @@ class Visite
     private $pays;
 
     #[ORM\Column(type: 'date', nullable: true)]
+    #[Assert\LessThanOrEqual("now")]
     private $datecreation;
 
     #[ORM\Column(type: 'integer', nullable: true)]
